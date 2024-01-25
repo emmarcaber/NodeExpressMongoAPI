@@ -20,7 +20,7 @@ router.post("/post", async (req, res) => {
 // Get all Method
 router.get("/getAll", async (req, res) => {
   try {
-    const data = await Model.find().select("name age -_id");
+    const data = await Model.find().select("name age");
     res.status(200).json(data);
   } catch (error) {
     res.status(400).send({ message: error.message });
@@ -28,18 +28,41 @@ router.get("/getAll", async (req, res) => {
 });
 
 // Get by ID Method
-router.get("/getOne/:id", (req, res) => {
-  res.send("Get by ID API");
+router.get("/getOne/:id", async (req, res) => {
+  try {
+    const idToFind = req.params.id;
+    const data = await Model.findById(idToFind).select("name age -_id");
+    res.status(201).json(data);
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
 });
 
 // Update by ID Method
-router.patch("/update/:id", (req, res) => {
-  res.send("Update by ID API");
+router.patch("/update/:id", async (req, res) => {
+  try {
+    const idToUpdate = req.params.id;
+    const updatedData = req.body;
+    const options = { new: true };
+
+    const result = await Model.findByIdAndUpdate(id, updatedData, options);
+
+    res.send(result);
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
 });
 
 // Delete by ID Method
-router.delete("/delete/:id", (req, res) => {
-  res.send("Delete by ID API");
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const idToDelete = req.params.id;
+    const data = await Model.findByIdAndDelete(idToDelete);
+
+    res.send(`Document with ${data.name} has been deleted...`);
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
 });
 
 module.exports = router;
