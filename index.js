@@ -1,9 +1,8 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-require("dotenv").config();
-
-// Connect to the database
 const mongoString = process.env.DATABASE_URL;
+
 mongoose.connect(mongoString);
 const database = mongoose.connection;
 
@@ -15,11 +14,9 @@ database.once("connected", () => {
   console.log("Database Connected");
 });
 
-// Start the server
 const app = express();
-
 app.use(express.json());
 
 app.listen(3000, () => {
-  console.log(`Server started at ${3000}`);
+  console.log(`App listening on port ${3000}`);
 });
