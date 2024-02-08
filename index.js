@@ -54,5 +54,7 @@ const specs = swaggerJsdoc(options);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 app.listen(3000, () => {
-  console.log(`App listening on port ${3000}`);
+  res.json({
+    link: "Please visit the /api-docs route",
+  });
 });
