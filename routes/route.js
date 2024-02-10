@@ -166,7 +166,7 @@ router.patch("/students/:id", async (req, res) => {
     const updatedData = req.body;
     const options = { new: true };
 
-    const result = await Student.findByIdAndUpdate(id, updatedData, options);
+    const result = await Student.findByIdAndUpdate(idToUpdate, updatedData, options);
 
     res.status(201).send(result);
   } catch (error) {
