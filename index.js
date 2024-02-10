@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const routes = require("./routes/route");
+const cors = require('cors')
 
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
@@ -21,6 +22,7 @@ database.once("connected", () => {
 
 const app = express();
 app.use(express.json());
+app.use(cors())
 app.use("/api", routes);
 
 const options = {
